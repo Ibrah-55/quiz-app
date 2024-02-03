@@ -45,6 +45,11 @@ app.use("/api", userRecordRouter);
 app.use("/api", paymentRouter);
 
 // starting express server
+app.get("/", (req, res) => {
+  res.status(200).send("Hello World");
+});
+
+
 app.listen(PORT, (err) => {
   if (err) {
     console.log(err);
