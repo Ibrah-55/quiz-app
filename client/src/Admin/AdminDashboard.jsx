@@ -35,7 +35,7 @@ const AdminDashboard = () => {
       <aside className="w-full md:w-64 bg-gradient-to-b from-blue-400 via-blue-500 to-blue-600 flex flex-col items-center justify-between py-4 border-r border-white">
         <div>
           <h2 className="text-2xl font-black mb-4 text-black">
-            Admin Dashboard
+            Superuser
           </h2>
           <hr className="h-1 bg-white m-2 mb-4" />
           <ul className="space-y-2">
@@ -98,7 +98,7 @@ const AdminDashboard = () => {
 
       {/* Main Content */}
       <main className="flex-1 p-8 bg-gradient-to-r from-blue-100 via-blue-200 to-blue-300">
-        <h1 className="text-3xl font-semibold mb-8">Welcome, Admin!</h1>
+        <h1 className="text-3xl font-semibold mb-8">Admin!</h1>
         <p>Click on the links in the sidebar to manage questions and tests.</p>
         <div className="p-1 m-1 bg-blue-400 w-fit rounded-md">
           <h3>

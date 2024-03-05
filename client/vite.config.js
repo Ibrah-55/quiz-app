@@ -5,7 +5,7 @@ export default () => {
   return defineConfig({
     server: {
       host: "0.0.0.0",
-      port: "5500",
+      port: "3000",
       strictPort: true,
     },
     plugins: [react()],

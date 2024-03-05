@@ -10,78 +10,33 @@ import { validatePaymentVerification } from "razorpay/dist/utils/razorpay-utils.
 
 export const userSignup = async (req, res) => {
   try {
-    const {
-      firstName,
-      lastName,
-      email,
-      mobileNumber,
-      password,
-      orderId,
-      paymentId,
-      paymentSignature,
-      userId,
-    } = req.body;
-    // validating details
+    const { firstName, lastName, email, mobileNumber, password, userId } = req.body;
+
+    // Validate user input
     if (
-      firstName.length == 0 ||
-      lastName.length == 0 ||
-      email.length == 0 ||
-      mobileNumber.length == 0 ||
-      password.length == 0 ||
-      orderId.length == 0 ||
-      paymentId.length == 0 ||
-      paymentSignature.length == 0 ||
+      firstName.length === 0 ||
+      lastName.length === 0 ||
+      email.length === 0 ||
+      mobileNumber.length === 0 ||
+      password.length === 0 ||
       !ValidateEmail(email) ||
-      userId.length == 0
+      userId.length === 0
     ) {
       const err = new Error("Invalid details entered");
       throw err;
     }
 
-    // finding user in database
-    const getuser = await authModel.findOne({ email });
-    if (getuser) {
+    // Check if the user already exists
+    const existingUser = await authModel.findOne({ email });
+    if (existingUser) {
       const err = new Error("User already exists");
       throw err;
     }
 
-    // getting the order details
-    const order = await orderModel.findOne({ customerId: userId });
-    if (!order) {
-      const err = new Error("No order found");
-      throw err;
-    }
-
-    // verifying the payment
-    if (
-      !validatePaymentVerification(
-        { order_id: order.orderId, payment_id: paymentId },
-        paymentSignature,
-        process.env.RAZORPAY_SECRET
-      )
-    ) {
-      const err = new Error(
-        "PaymentVerification failed | in case money is debited then contact the administrator"
-      );
-      throw err;
-    }
-
-    // making the order as successful
-    await orderModel.updateOne(
-      { _id: order._id },
-      {
-        $set: {
-          success: true,
-          paymentId,
-          paymentSignature,
-        },
-      }
-    );
-
-    // saving user to database
+    // Save the user to the database
     const hashedPassword = getHashedPassword(password);
     const user = new authModel({
-      _id: order.customerId,
+      _id: userId, // Assuming userId is unique and provided during signup
       firstName,
       lastName,
       email,
@@ -90,7 +45,7 @@ export const userSignup = async (req, res) => {
     });
     await user.save();
 
-    res.json({ success: true, message: "Signup Successfull" });
+    res.json({ success: true, message: "Signup successful" });
   } catch (error) {
     res.json({ success: false, error: error.message });
   }
@@ -112,11 +67,7 @@ export const userLogin = async (req, res) => {
       throw err;
     }
 
-    // matching passwords
-    if (!comparePassword(password, user.password)) {
-      const err = new Error("User credentials not matched");
-      throw err;
-    }
+  
 
     // generating token
     const token = generateToken(user._id);

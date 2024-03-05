@@ -84,13 +84,14 @@ const Admin_getTestDetails = () => {
       <div className="max-w-md mx-auto mt-8 p-4 bg-white rounded-md shadow-md">
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
           <label htmlFor="textInput" className="text-gray-600">
-            Enter Text:
+            Search:
           </label>
           <input
             type="text"
             id="textInput"
             autoComplete="off"
             value={testName}
+            placeholder="Enter test name"
             onChange={handleChange}
             className="px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
             required
@@ -211,7 +212,7 @@ const Admin_getTestDetails = () => {
         </>
       ) : (
         <p className="m-1 p-1 text-sm text-slate-500">
-          Enter test name to get the details
+by<a href="https://linktr.ee/ibrah_jarvis" className="text-blue-800"> Jarvis</a> @2024
         </p>
       )}
     </div>

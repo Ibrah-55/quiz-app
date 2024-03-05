@@ -43,6 +43,7 @@ const Quiz = ({ TestName }) => {
     const handleVisibilityChange = () => {
       if (document.hidden) {
         sendWarningMessage("Cannot change visibility of window");
+        
       }
     };
 

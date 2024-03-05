@@ -101,6 +101,7 @@ const TestDashboard = ({ TestName }) => {
 
           if (res.data.success) {
             setTestDetail(res.data.tests);
+            console.log(res.data.tests)
           } else {
             sendInfoMessage("No test details found");
           }
@@ -122,6 +123,7 @@ const TestDashboard = ({ TestName }) => {
       clearInterval(interval);
     };
   });
+  
 
   return (
     <>
@@ -185,10 +187,11 @@ const TestDashboard = ({ TestName }) => {
 
             <div className="text-sm mt-6 p-4 flex flex-col gap-4">
               <p className="text-green-400 font-semibold">
-                Dnyanankur Publication {" > "} Test Center {" > "} Mock Test{" "}
+                Think Twice Publication {" > "} Test Center {" > "} Mock Test{" "}
                 {" > "} Test Details
               </p>
               <p className="font-bold text-lg">Test Descriptions</p>
+
 
               {!testDetail ? (
                 <Loading />
@@ -287,18 +290,20 @@ const TestDashboard = ({ TestName }) => {
                         </li>
                         <li>
                           <span className="font-bold text-purple-400">
-                            Start on {`(YYYY-MM-DDTHH:MM:SSZ)`}:
+                            Start on :
                           </span>{" "}
                           {getLocaleTime(test.timings.startTime)}
                         </li>
                         <li>
                           <span className="font-bold text-purple-400">
-                            Ends on {`(YYYY-MM-DDTHH:MM:SSZ)`}:
+                            Ends on :
                           </span>{" "}
                           {getLocaleTime(test.timings.endTime)}
                         </li>
                       </ul>
-
+                      <div className="text-gray-300 text-sm mt-4">
+                        <p>* make sure you have read the instructions</p>
+                      </div>
                       <div className="flex flex-col sm:flex-row justify-center sm:justify-end mt-6">
                         <button
                           type="button"
@@ -325,11 +330,10 @@ const TestDashboard = ({ TestName }) => {
                         >
                           <Link to="/test-dashboard">Re-Test</Link>
                         </button>
+                        
                       </div>
 
-                      <div className="text-gray-300 text-sm mt-4">
-                        <p>* make sure you have read the instructions</p>
-                      </div>
+                     
                     </div>
                   );
                 })

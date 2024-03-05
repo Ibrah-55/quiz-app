@@ -16,13 +16,13 @@ const LoginSignUp = ({ jsxElement, endPoint, showLogin }) => {
       <div className="bg-blue-400 rounded-t-2xl lg:rounded-2xl lg:fixed lg:right-1/4 lg:top-36 p-5 flex flex-col items-center">
         <img src={logo} className="w-60" alt="" />
         <p className="text-2xl text-yellow-300 font-semibold">
-          Ecosysytem test
+          Think Twice
         </p>
         <p className="text-xl my-5 text-white">
           price{" "}
-          <span className="px-3 text-black rounded bg-yellow-300">Free</span>
+          <span className="px-3 text-black rounded bg-green-300">Free</span>
         </p>
-        <p className="text-white font-bold text-xl">Scholarship up to 50%</p>
+        <p className="text-white font-bold text-xl">Are you creative?</p>
       </div>
 
       {/* Toggler and Forms */}

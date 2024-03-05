@@ -10,29 +10,23 @@ import userRouter from "./src/routes/user.route.js";
 import userRecordRouter from "./src/routes/userRecord.route.js";
 import paymentRouter from "./src/routes/payment.route.js";
 
-// configuring dotenv
 dotenv.config();
 
-// connecting to database
 connectToDatabase(process.env.MONGO_URI);
 
-// creating express application
 const app = express();
 
-// port number
-const PORT = process.env.PORT || 9090;
+const PORT = process.env.PORT || 4000;
 
-// setting up cors
 app.use(
   cors({
-    origin: ["http://dnyanankur.in", "http://localhost:5500"], // specify the allowed origin
+    origin: [ "http://localhost:3000"], 
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
     optionsSuccessStatus: 204,
   })
 );
 
-// middlewares
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -44,7 +38,6 @@ app.use("/api", userRouter);
 app.use("/api", userRecordRouter);
 app.use("/api", paymentRouter);
 
-// starting express server
 app.get("/", (req, res) => {
   res.status(200).send("Hello World");
 });

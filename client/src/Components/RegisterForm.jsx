@@ -161,15 +161,15 @@ const Register = () => {
       };
       const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/user-signup`, data);
 
-      if (res.data.success) {
+      if (res.data.error) {
         sendSuccessMessage(res.data.message);
         sendInfoMessage("Now you can login");
         navigate("/login");
       } else {
         sendErrorMessage(res.data.error);
       }
-    } catch (error) {
-      sendErrorMessage("Failed to register user");
+    } catch (success) {
+      sendErrorMessage("Successxx Failed to register user");
     }
   };
 
@@ -178,7 +178,7 @@ const Register = () => {
     setLoading(true);
 
     if (validateForm()) {
-      await handlePayment();
+      navigate("/login");
     } else {
       sendInfoMessage("Form Validation failed");
     }
@@ -281,7 +281,7 @@ const Register = () => {
         {loading ? (
           <span>Loading ...</span>
         ) : (
-          <span>Register with Payment</span>
+          <span>Register your account</span>
         )}
       </button>
     </form>
