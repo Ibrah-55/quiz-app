@@ -3,6 +3,7 @@ import { resetAdminData } from "../store/features/adminSlice.js";
 import Admin_addTest from "./Admin_addTest";
 import Admin_getTestDetails from "./Admin_getTestDetails.jsx";
 import Admin_addQuestions from "./Admin_addQuestions";
+import Admin_DeleteTest from "./Admin_DeleteTest.jsx";
 import PreviewWindow from "./PreviewWindow.jsx";
 import { useState } from "react";
 
@@ -10,7 +11,7 @@ const AdminDashboard = () => {
   const adminStatus = useSelector((state) => state.admin);
   const dispatch = useDispatch();
 
-  const [selectedTab, setSelectedTab] = useState("addTest");
+  const [selectedTab, setSelectedTab] = useState("addQuestions");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleClick = (text) => {
@@ -60,6 +61,16 @@ const AdminDashboard = () => {
               }}
             >
               <span className="text-base text-black font-mono">Add Test</span>
+            </li>
+            <li
+              className={`rounded-md shadow-md p-2 cursor-pointer ${
+                selectedTab === "deleteTest" ? "bg-slate-400" : ""
+              }`}
+              onClick={() => {
+                handleClick("deleteTest");
+              }}
+            >
+              <span className="text-base text-black font-mono">Delete Test</span>
             </li>
             <li
               className={`rounded-md shadow-md p-2 cursor-pointer ${
@@ -119,6 +130,8 @@ const AdminDashboard = () => {
                 <Admin_addQuestions />
               ) : selectedTab === "addTest" ? (
                 <Admin_addTest />
+                ) : selectedTab === "deleteTest" ? (
+                  <Admin_DeleteTest/>
               ) : selectedTab === "getTestDetails" ? (
                 <Admin_getTestDetails />
               ) : (

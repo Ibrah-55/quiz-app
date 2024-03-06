@@ -52,7 +52,7 @@ export const canGiveTest = async (req, res) => {
     // finding the record
     const record = await recordModel.findOne({ testName, userId: user._id });
     if (record) {
-      const error = new Error("Record found | cannot give test");
+      const error = new Error("You completed the Test. Your Results: ");
       throw error;
     }
 

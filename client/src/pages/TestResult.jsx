@@ -144,16 +144,24 @@ const TestResult = ({ TestName }) => {
 
     getResult();
   }, []);
-
-  const getOptionColor = (optionId, marked_optionId, isCorrectOption) => {
+  const getOptionColorAndStatus = (
+    optionId,
+    marked_optionId,
+    isCorrectOption
+  ) => {
     if (optionId === marked_optionId && !isCorrectOption) {
-      return "#ff0000";
+      return { color: "#ff0000", status: "   -- Incorrect" };
     }
-    if (isCorrectOption) {
-      return "#00ffff";
+    if (isCorrectOption && optionId === marked_optionId) {
+      return { color: "#00ffff", status: "   -- Correct" };
     }
-    return "#ffffff";
+    if(!marked_optionId && isCorrectOption){
+      return { color: "#0fffff", status: "   -- Correct Answer. Not Taken." };
+
+    }
+    return { color: "#ffffff" };
   };
+  const getAlphabetByIndex = (index) => String.fromCharCode(65 + index); 
 
   const getQuestionColor = (solution) => {
     if (solution.visitedFlag && solution.optionId != null) {
@@ -226,7 +234,7 @@ const TestResult = ({ TestName }) => {
 
       <div className="text-xs mt-10 p-2 flex flex-col gap-2 text-gray-800 dark:text-gray-200">
         <p className="text-gray-600 dark:text-gray-300 font-semibold">
-          Dnyanankur Publication {" > "} Test Center {" > "} Mock Test {" > "}
+          Think twice {" > "} Test Center {" > "} Mock Test {" > "}
           Test Details
         </p>
         <p className="font-bold text-base">Test Details</p>
@@ -404,6 +412,8 @@ const TestResult = ({ TestName }) => {
               >
                 <h3 className="text-lg font-semibold mb-2">
                   <span className="flex flex-row gap-2 items-center justify-center">
+                    <span> Question</span>
+
                     {q_index + 1 + ". "}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -433,24 +443,36 @@ const TestResult = ({ TestName }) => {
                   />
                 </h3>
                 <ul className="list-disc pl-6">
-                  {question.questionOption.map((option, option_index) => (
-                    <li
-                      key={option_index}
-                      style={{
-                        color: getOptionColor(
-                          option._id,
-                          answers.find(
-                            (record) =>
-                              record.questionId === String(question._id)
-                          ).optionId,
-                          option.isCorrect
-                        ),
-                        marginLeft: "8px",
-                      }}
-                    >
-                      <span>{option.answerText}</span>
-                    </li>
-                  ))}
+                  {question.questionOption.map((option, option_index) => {
+                    const { color, status } = getOptionColorAndStatus(
+                      option._id,
+                      answers.find(
+                        (record) => record.questionId === String(question._id)
+                      ).optionId,
+                      option.isCorrect
+                    );
+
+                    return (
+                      <li
+                        key={option_index}
+                        style={{
+                          marginLeft: "8px",
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <span style={{ color: color, marginRight: "8px" }}>
+                          {getAlphabetByIndex(option_index)}.{" "}
+                          {option.answerText}
+                        </span>
+                        {status && (
+                          <div style={{ color: color, fontWeight: "bold" }}>
+                            {status}
+                          </div>
+                        )}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             ))}

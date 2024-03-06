@@ -19,19 +19,19 @@ const ProfileDropdown = ({
               {phone}
             </p>
           </li>
-          <li>
+          {/* <li>
             <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white cursor-pointer">
               {regd}
             </p>
-          </li>
-          <li>
+          </li> */}
+          {/* <li>
             <p
               href="#"
               className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white cursor-pointer"
             >
               Settings
             </p>
-          </li>
+          </li> */}
         </ul>
         <div className="py-2">
           <p

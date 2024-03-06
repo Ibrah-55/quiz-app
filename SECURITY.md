@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-The current version of the `scholarship test app` is `1.0.0`. There might be other versions available soon.
+The current version of the `Think Twice test app` is `1.0.0`. There might be other versions available soon.
 
 | Version | Supported          |
 | ------- | ------------------ |

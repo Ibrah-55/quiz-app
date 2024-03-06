@@ -36,17 +36,17 @@ const App = () => {
             element={<TestDashboard TestName={CompanyName} />}
           />
           <Route
-            path="/:testName-preview"
+            path="/:testName"
             element={<TestPreview TestName={CompanyName} />}
           />
           <Route
             path={
-              "/:testName-quiz/total-questions-/:totalQuestions/marks-per-question-/:marksPerQuestion/negative-marking-/:negativeMarking/time-available-/:timeAvailable"
+              "/:testName/total-questions-/:totalQuestions/marks-per-question-/:marksPerQuestion/negative-marking-/:negativeMarking/time-available-/:timeAvailable"
             }
             element={<Quiz TestName={CompanyName} />}
           />
           <Route
-            path="/:testName-result"
+            path="/:testName/result"
             element={<TestResult TestName={CompanyName} />}
           />
         </Route>

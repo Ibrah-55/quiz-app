@@ -96,6 +96,40 @@ const Admin_addQuestions = () => {
       ],
     }));
   };
+  
+
+  const handleDeleteQuestions = async () => {
+    setIsLoading(true);
+
+    const token = adminStatus.token;
+
+    if (formData.testName.length > 0 && token.length > 0) {
+      try {
+        const res = await axios.delete(
+          `${import.meta.env.VITE_API_BASE_URL}/api/admin/delete-question/${formData.testName}`,
+          {
+            headers: { Authorization: "Bearer " + token },
+          }
+        );
+
+        if (res.data.success) {
+          sendSuccessMessage(res.data.message);
+
+          // Redirect to the "Add Questions" page
+          window.location.href = "/admin-dashboard";
+        } else {
+          sendWarningMessage(res.data.error);
+          sendInfoMessage("Error");
+        }
+      } catch (error) {
+        sendErrorMessage("Error deleting questions");
+      }
+    } else {
+      sendWarningMessage("Test Name is required");
+    }
+
+    setIsLoading(false);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -245,6 +279,21 @@ const Admin_addQuestions = () => {
             <span>Add Questions</span>
           )}
         </button>
+        <button
+        type="button"
+        disabled={isLoading}
+        className="bg-red-500 text-white px-4 m-1 py-2 rounded-md hover:bg-red-600 mb-4"
+        onClick={handleDeleteQuestions}
+      >
+        {isLoading ? (
+          <div className="flex flex-row items-center justify-center gap-2">
+            <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-white border-r-2 border-b-2"></div>
+            <p className="text-white">Wait ...</p>
+          </div>
+        ) : (
+          <span>Delete Questions</span>
+        )}
+      </button>
       </form>
     </div>
   );

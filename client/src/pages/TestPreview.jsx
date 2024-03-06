@@ -20,7 +20,8 @@ const TestPreview = ({ TestName }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { testName } = useParams();
+  const {testName } = useParams();
+  console.log("Test name Provided TestPreview", testName)
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -138,16 +139,18 @@ const TestPreview = ({ TestName }) => {
           },
           { headers: { Authorization: "Bearer " + accessToken } }
         );
+        console.log("Response: ", res);
 
         if (res.data.success) {
           sendSuccessMessage("Test submitted!");
-          navigate(`/${testName}-result`);
+          navigate(`/${testName}/result`);
           dispatch(resetUserAnsState());
         } else {
           sendInfoMessage("Cannot submit the test");
         }
       } catch (error) {
         sendErrorMessage("Error submitting");
+        console.log(error)
       }
     } else {
       sendInfoMessage("You are not authenticated");
@@ -155,16 +158,18 @@ const TestPreview = ({ TestName }) => {
 
     setIsLoading(false);
   };
+  console.log("User Solutions State:", userSolutions);
+
 
   const handleTestUnsubmit = (
-    testname,
+    testName,
     totalQuestions,
     marksPerQuestion,
     negativeMarking,
     timeAvailable
   ) => {
     navigate(
-      `/${testname}-quiz/total-questions-/${totalQuestions}/marks-per-question-/${marksPerQuestion}/negative-marking-/${negativeMarking}/time-available-/${timeAvailable}`
+      `/${testName}/total-questions-/${totalQuestions}/marks-per-question-/${marksPerQuestion}/negative-marking-/${negativeMarking}/time-available-/${timeAvailable}`
     );
   };
 

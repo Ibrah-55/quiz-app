@@ -25,7 +25,8 @@ const Quiz = ({ TestName }) => {
   const loginStatus = useSelector((state) => state.login);
   const userSolutions = useSelector((state) => state.userAns);
   const dispatch = useDispatch();
-  const { testName } = useParams();
+  const  {testName}  = useParams();
+  console.log(testName)
 
   const navigate = useNavigate();
 
@@ -43,7 +44,6 @@ const Quiz = ({ TestName }) => {
     const handleVisibilityChange = () => {
       if (document.hidden) {
         sendWarningMessage("Cannot change visibility of window");
-        
       }
     };
 
@@ -75,7 +75,7 @@ const Quiz = ({ TestName }) => {
   }, []);
 
   const handleSubmitTest = () => {
-    navigate(`/${testName}-preview`);
+    navigate(`/${testName}`);
   };
 
   // start timer
@@ -160,6 +160,7 @@ const Quiz = ({ TestName }) => {
           }
         } catch (error) {
           sendErrorMessage("Cannot get questions");
+          console.log(error)
         }
       } else {
         if (!token) {

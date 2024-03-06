@@ -3,10 +3,10 @@ const Home = () => {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <header className="text-center mb-8">
         <h1 className="text-4xl font-bold text-blue-600">
-          Scholarship Test App
+          Think Twice Test App
         </h1>
         <p className="text-gray-600">
-          Prepare for your scholarship test with confidence!
+          Prepare for your test with confidence!
         </p>
       </header>
 

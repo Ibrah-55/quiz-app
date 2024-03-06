@@ -56,11 +56,12 @@ const TestDashboard = ({ TestName }) => {
           if (res.data.success) {
             sendSuccessMessage("Eligible For Test");
             navigate(
-              `/${testname}-quiz/total-questions-/${totalQuestions}/marks-per-question-/${marksPerQuestion}/negative-marking-/${negativeMarking}/time-available-/${timeAvailable}`
+              `/${testname}/total-questions-/${totalQuestions}/marks-per-question-/${marksPerQuestion}/negative-marking-/${negativeMarking}/time-available-/${timeAvailable}`
             );
           } else {
-            sendWarningMessage(res.data.error);
-            navigate(`/${testname}-result`);
+            sendInfoMessage(res.data.error);
+            console.log(res.data.error)
+            navigate(`/${testname}/result`);
           }
         } catch (error) {
           sendErrorMessage("Error");
@@ -101,7 +102,7 @@ const TestDashboard = ({ TestName }) => {
 
           if (res.data.success) {
             setTestDetail(res.data.tests);
-            console.log(res.data.tests)
+            console.log("Tests: ", res.data.tests);
           } else {
             sendInfoMessage("No test details found");
           }
@@ -123,7 +124,6 @@ const TestDashboard = ({ TestName }) => {
       clearInterval(interval);
     };
   });
-  
 
   return (
     <>
@@ -192,7 +192,6 @@ const TestDashboard = ({ TestName }) => {
               </p>
               <p className="font-bold text-lg">Test Descriptions</p>
 
-
               {!testDetail ? (
                 <Loading />
               ) : (
@@ -253,7 +252,7 @@ const TestDashboard = ({ TestName }) => {
                       ) : (
                         <h1 className="m-1 p-1">
                           <span className="font-bold text-red-400 uppercase text-xl font-sans">
-                            ! ENDED
+                            Past Tests
                           </span>
                         </h1>
                       )}
@@ -322,18 +321,19 @@ const TestDashboard = ({ TestName }) => {
                             );
                           }}
                         >
-                          Start Exam
+                          {!checkGreaterTime(test.timings.endTime) ||
+                          checkGreaterTime(test.timings.startTime)
+                            ? "Not Available"
+                            : "Start Test"}
                         </button>
-                        <button
+
+                        {/* <button
                           type="button"
                           className="bg-gray-600 hover:bg-gray-700 text-white py-2 px-4 rounded"
                         >
                           <Link to="/test-dashboard">Re-Test</Link>
-                        </button>
-                        
+                        </button> */}
                       </div>
-
-                     
                     </div>
                   );
                 })

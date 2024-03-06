@@ -173,3 +173,101 @@ export const addQuestions = async (req, res) => {
     res.json({ success: false, error: error.message });
   }
 };
+export const getQuestionsForTest = async (req, res) => {
+  try {
+    const userId = req.userId;
+    if (!userId) {
+      const err = new Error("Invalid user");
+      throw err;
+    }
+
+    const admin = await adminModel.findOne({ _id: userId });
+    if (!admin) {
+      const err = new Error("You are not authorized");
+      throw err;
+    }
+
+    const { testName } = req.params;
+    if (!testName || testName.length === 0) {
+      const err = new Error("Invalid test name");
+      throw err;
+    }
+
+    const questions = await questionModel.findOne({ testName });
+    if (!questions) {
+      const error = new Error("No questions found for the test");
+      throw error;
+    }
+
+    res.json({ success: true, data: { questions }, message: "questions fetched successfully" });
+  } catch (error) {
+    res.json({ success: false, error: error.message });
+  }
+};
+export const adminDeleteTest = async (req, res) => {
+  try {
+    const userId = req.userId;
+    if (!userId) {
+      const err = new Error("Invalid user");
+      throw err;
+    }
+
+    const admin = await adminModel.findOne({ _id: userId });
+    if (!admin) {
+      const err = new Error("You are not authorized");
+      throw err;
+    }
+
+    const { testName } = req.params;
+    if (!testName || testName.length === 0) {
+      const err = new Error("Invalid test name");
+      throw err;
+    }
+
+    // Find and delete the test details
+    const deletedTest = await testModel.findOneAndDelete({ testName });
+    if (!deletedTest) {
+      const err = new Error("Test not found");
+      throw err;
+    }
+
+    // Delete associated questions and records
+    await questionModel.deleteOne({ testName });
+    await recordModel.deleteMany({ testName });
+
+    res.json({ success: true, message: "Test deleted successfully" });
+  } catch (error) {
+    res.json({ success: false, error: error.message });
+  }
+};
+export const deleteQuestions = async (req, res) => {
+  try {
+    const userId = req.userId;
+    if (!userId) {
+      const err = new Error("Invalid user");
+      throw err;
+    }
+
+    // Check if the user is an admin
+    const admin = await adminModel.findOne({ _id: userId });
+    if (!admin) {
+      const err = new Error("You are not authorized");
+      throw err;
+    }
+
+    const { testName } = req.params;
+
+    // Validate testName
+    if (!testName || testName.length === 0) {
+      const err = new Error("Invalid test name");
+      throw err;
+    }
+
+    // Delete questions for the given test
+    await questionModel.deleteOne({ testName });
+
+    res.json({ success: true, message: "Questions deleted successfully" });
+  } catch (error) {
+    res.json({ success: false, error: error.message });
+  }
+};
