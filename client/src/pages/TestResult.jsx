@@ -150,16 +150,19 @@ const TestResult = ({ TestName }) => {
     isCorrectOption
   ) => {
     if (optionId === marked_optionId && !isCorrectOption) {
-      return { color: "#ff0000", status: "   -- Incorrect" };
+      return { color: "#ff0000", status: "   -- Wrong" };
     }
     if (isCorrectOption && optionId === marked_optionId) {
-      return { color: "#00ffff", status: "   -- Correct" };
+      return { color: "green", status: "   -- Correct Answer" };
     }
-    if(!marked_optionId && isCorrectOption){
-      return { color: "#0fffff", status: "   -- Correct Answer. Not Taken." };
+    if( isCorrectOption){
+      return { color: "#0fffff", status: "   -- Correct Answer" };
+
+    }else if(!isCorrectOption && !optionId=== marked_optionId){
+      return { color: "#ffffff", status: "    --- Not Taken"};
 
     }
-    return { color: "#ffffff" };
+    return { color: "#ffffff"};
   };
   const getAlphabetByIndex = (index) => String.fromCharCode(65 + index); 
 
@@ -468,6 +471,7 @@ const TestResult = ({ TestName }) => {
                         {status && (
                           <div style={{ color: color, fontWeight: "bold" }}>
                             {status}
+                            
                           </div>
                         )}
                       </li>

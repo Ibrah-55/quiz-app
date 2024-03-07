@@ -38,6 +38,8 @@ const Admin_DeleteTest = () => {
 
           if (res.data.success) {
             sendSuccessMessage(res.data.message);
+            window.location.href = "/admin-dashboard";
+
           } else {
             sendInfoMessage("Error deleting test");
             sendWarningMessage(res.data.error);

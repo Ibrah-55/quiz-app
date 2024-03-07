@@ -79,6 +79,12 @@ const Admin_addQuestions = () => {
     }
   };
 
+  const handleDeleteQuestion = (questionIndex) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      questions: prevData.questions.filter((_, idx) => idx !== questionIndex),
+    }));
+  };
   const handleAddQuestion = () => {
     setFormData((prevData) => ({
       ...prevData,
@@ -100,26 +106,32 @@ const Admin_addQuestions = () => {
 
   const handleDeleteQuestions = async () => {
     setIsLoading(true);
-
+  
     const token = adminStatus.token;
-
+  
     if (formData.testName.length > 0 && token.length > 0) {
       try {
-        const res = await axios.delete(
-          `${import.meta.env.VITE_API_BASE_URL}/api/admin/delete-question/${formData.testName}`,
-          {
-            headers: { Authorization: "Bearer " + token },
+        const testNameExists = await checkTestNameExists(formData.testName, token);
+  
+        if (testNameExists) {
+          const res = await axios.delete(
+            `${import.meta.env.VITE_API_BASE_URL}/api/admin/delete-question/${formData.testName}`,
+            {
+              headers: { Authorization: "Bearer " + token },
+            }
+          );
+  
+          if (res.data.success) {
+            sendSuccessMessage(res.data.message);
+  
+            // Redirect to the "Add Questions" page
+            window.location.href = "/admin-dashboard";
+          } else {
+            sendWarningMessage(res.data.error);
+            sendInfoMessage("Error");
           }
-        );
-
-        if (res.data.success) {
-          sendSuccessMessage(res.data.message);
-
-          // Redirect to the "Add Questions" page
-          window.location.href = "/admin-dashboard";
         } else {
-          sendWarningMessage(res.data.error);
-          sendInfoMessage("Error");
+          sendWarningMessage("Test Name does not exist");
         }
       } catch (error) {
         sendErrorMessage("Error deleting questions");
@@ -127,10 +139,26 @@ const Admin_addQuestions = () => {
     } else {
       sendWarningMessage("Test Name is required");
     }
-
+  
     setIsLoading(false);
   };
-
+  
+  // Function to check if testName exists
+  const checkTestNameExists = async (testName, token) => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/api/admin/get-questions/${testName}`,
+        {
+          headers: { Authorization: "Bearer " + token },
+        }
+      );
+  
+      return response.data.success;
+    } catch (error) {
+      return false;
+    }
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -152,6 +180,8 @@ const Admin_addQuestions = () => {
 
         if (res.data.success) {
           sendSuccessMessage(res.data.message);
+          window.location.href = "/admin-dashboard";
+
         } else {
           sendWarningMessage(res.data.error);
           sendInfoMessage("Error");
@@ -243,9 +273,26 @@ const Admin_addQuestions = () => {
                     }
                     className="ml-2"
                   />
+                  
                 </div>
+                
               ))}
             </div>
+            <button
+            type="button"
+            disabled={isLoading}
+            className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 mb-4"
+            onClick={() => handleDeleteQuestion(questionIndex)}
+          >
+            {isLoading ? (
+              <div className="flex flex-row items-center justify-center gap-2">
+                <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-white border-r-2 border-b-2"></div>
+                <p className="text-white">Wait ...</p>
+              </div>
+            ) : (
+              <span>Delete Question</span>
+            )}
+          </button>
           </div>
         ))}
 
@@ -279,6 +326,7 @@ const Admin_addQuestions = () => {
             <span>Add Questions</span>
           )}
         </button>
+        
         <button
         type="button"
         disabled={isLoading}
@@ -291,7 +339,7 @@ const Admin_addQuestions = () => {
             <p className="text-white">Wait ...</p>
           </div>
         ) : (
-          <span>Delete Questions</span>
+          <span>Delete All Questions Questions</span>
         )}
       </button>
       </form>
