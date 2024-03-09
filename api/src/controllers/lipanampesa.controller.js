@@ -66,6 +66,7 @@ export const stkPushCallback = async(req, res) => {
     try{
 
         const {Order_ID} = req.params
+        console.log("order Id: ", Order_ID )
 
 
         const {
@@ -102,6 +103,54 @@ export const stkPushCallback = async(req, res) => {
         res.status(503).send({
             message:"Something went wrong with the callback",
             error : e.message
+        })
+    }
+}
+
+export const confirmPayment = async(req, res) => {
+    try{
+
+
+        const url = "https://sandbox.safaricom.co.ke/mpesa/stkpushquery/v1/query"
+        const auth = "Bearer " + req.safaricom_access_token
+
+        const timestamp = getTimestamp()
+        //shortcode + passkey + timestamp
+        const password = new Buffer.from(process.env.BUSINESS_SHORT_CODE + process.env.PASS_KEY + timestamp).toString('base64')
+
+
+        request(
+            {
+                url: url,
+                method: "POST",
+                headers: {
+                    "Authorization": auth
+                },
+                json: {
+                    "BusinessShortCode":process.env.BUSINESS_SHORT_CODE,
+                    "Password": password,
+                    "Timestamp": timestamp,
+                    "CheckoutRequestID": req.params.CheckoutRequestID,
+
+                }
+            },
+            function (error, response, body) {
+                if (error) {
+                    console.log(error)
+                    res.status(503).send({
+                        message:"Something went wrong while trying to create LipaNaMpesa details. Contact admin",
+                        error : error
+                    })
+                } else {
+                    res.status(200).json(body)
+                }
+            }
+        )
+    }catch (e) {
+        console.error("Error while trying to create LipaNaMpesa details",e)
+        res.status(503).send({
+            message:"Something went wrong while trying to create LipaNaMpesa details. Contact admin",
+            error : e
         })
     }
 }
