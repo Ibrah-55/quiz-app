@@ -111,6 +111,7 @@ const Admin_addQuestions = () => {
   
     if (formData.testName.length > 0 && token.length > 0) {
       try {
+        // Check if testName exists before making the delete request
         const testNameExists = await checkTestNameExists(formData.testName, token);
   
         if (testNameExists) {
@@ -125,8 +126,9 @@ const Admin_addQuestions = () => {
             sendSuccessMessage(res.data.message);
   
             // Redirect to the "Add Questions" page
-            window.location.href = "/admin-dashboard";
-          } else {
+            setTimeout(() => {
+              window.location.href = "/admin-dashboard";
+            }, 3000);          } else {
             sendWarningMessage(res.data.error);
             sendInfoMessage("Error");
           }
@@ -180,8 +182,9 @@ const Admin_addQuestions = () => {
 
         if (res.data.success) {
           sendSuccessMessage(res.data.message);
-          window.location.href = "/admin-dashboard";
-
+          setTimeout(() => {
+            window.location.href = "/admin-dashboard";
+          }, 3000);   
         } else {
           sendWarningMessage(res.data.error);
           sendInfoMessage("Error");
@@ -278,7 +281,7 @@ const Admin_addQuestions = () => {
                 
               ))}
             </div>
-            <button
+             <button
             type="button"
             disabled={isLoading}
             className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 mb-4"
@@ -339,7 +342,7 @@ const Admin_addQuestions = () => {
             <p className="text-white">Wait ...</p>
           </div>
         ) : (
-          <span>Delete All Questions Questions</span>
+          <span>Delete Questions</span>
         )}
       </button>
       </form>

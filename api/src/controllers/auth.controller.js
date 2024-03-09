@@ -63,7 +63,7 @@ export const userLogin = async (req, res) => {
     // finding user in database
     const user = await authModel.findOne({ email });
     if (!user) {
-      const err = new Error("User not found");
+      const err = new Error("Invalid Credentials");
       throw err;
     }
 

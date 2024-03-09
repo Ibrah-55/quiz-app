@@ -11,41 +11,10 @@ const LoginSignUp = ({ jsxElement, endPoint, showLogin }) => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row p-2 md:p-10">
+    <div className="flex flex-col p-2 ">
       {/* Top Container */}
-      <div className="bg-blue-400 rounded-t-2xl lg:rounded-2xl lg:fixed lg:right-1/4 lg:top-36 p-5 flex flex-col items-center">
-        <img src={logo} className="w-60" alt="" />
-        <p className="text-2xl text-yellow-300 font-semibold">
-          Think Twice
-        </p>
-        <p className="text-xl my-5 text-white">
-          price{" "}
-          <span className="px-3 text-black rounded bg-green-300">Free</span>
-        </p>
-        <p className="text-white font-bold text-xl">Are you creative?</p>
-      </div>
+      <div className="bg-blue-400 rounded-t-2xl flex flex-col items-center">
 
-      {/* Toggler and Forms */}
-      <div className="p-3 border border-blue-400 rounded-b-2xl lg:rounded-2xl lg:p-5">
-        <div className="flex gap-4">
-          <div
-            className={
-              showLogin ? "cursor-pointer" : "bg-blue-400 px-2 text-white"
-            }
-            onClick={handleClick}
-          >
-            Register
-          </div>
-          <div
-            className={
-              showLogin ? "bg-blue-400 px-2 text-white" : "cursor-pointer"
-            }
-            onClick={handleClick}
-          >
-            Login
-          </div>
-        </div>
-        <hr className=" h-[2px] bg-blue-900" />
 
         <div className="mt-6">{jsxElement}</div>
       </div>

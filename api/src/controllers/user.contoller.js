@@ -16,7 +16,7 @@ export const canGiveTest = async (req, res) => {
     // finding user in db
     const user = await authModel.findOne({ _id: userId });
     if (!user) {
-      const err = new Error("User not found");
+      const err = new Error("Invalid Credentials");
       throw err;
     }
 
@@ -41,7 +41,7 @@ export const canGiveTest = async (req, res) => {
     // checking the order
     const order = await orderModel.findOne({ customerId: user._id });
     if (!order) {
-      const err = new Error("Order not found");
+      const err = new Error("Order not found --Payment unverified");
       throw err;
     }
     if (!order.success) {
@@ -73,7 +73,7 @@ export const getAvailableTests = async (req, res) => {
     // finding user in db
     const user = await authModel.findOne({ _id: userId });
     if (!user) {
-      const err = new Error("User not found");
+      const err = new Error("Invalid Credentials");
       throw err;
     }
 
@@ -102,7 +102,7 @@ export const getQuestions = async (req, res) => {
     // finding user in db
     const user = await authModel.findOne({ _id: userId });
     if (!user) {
-      const err = new Error("User not found");
+      const err = new Error("Invalid Credentials");
       throw err;
     }
 

@@ -14,7 +14,7 @@ const orderSchema = new mongoose.Schema(
     },
     paymentId: {
       type: String,
-      default: "not_done_payment",
+      default: "XXXXXXXXXX",
       required: true,
       trim: true,
     },

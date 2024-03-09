@@ -21,7 +21,6 @@ const TestPreview = ({ TestName }) => {
   const dispatch = useDispatch();
 
   const {testName } = useParams();
-  console.log("Test name Provided TestPreview", testName)
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -139,7 +138,6 @@ const TestPreview = ({ TestName }) => {
           },
           { headers: { Authorization: "Bearer " + accessToken } }
         );
-        console.log("Response: ", res);
 
         if (res.data.success) {
           sendSuccessMessage("Test submitted!");
@@ -150,7 +148,6 @@ const TestPreview = ({ TestName }) => {
         }
       } catch (error) {
         sendErrorMessage("Error submitting");
-        console.log(error)
       }
     } else {
       sendInfoMessage("You are not authenticated");
@@ -158,7 +155,6 @@ const TestPreview = ({ TestName }) => {
 
     setIsLoading(false);
   };
-  console.log("User Solutions State:", userSolutions);
 
 
   const handleTestUnsubmit = (

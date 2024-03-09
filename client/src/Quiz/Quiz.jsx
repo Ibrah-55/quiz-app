@@ -26,7 +26,6 @@ const Quiz = ({ TestName }) => {
   const userSolutions = useSelector((state) => state.userAns);
   const dispatch = useDispatch();
   const  {testName}  = useParams();
-  console.log(testName)
 
   const navigate = useNavigate();
 
@@ -160,7 +159,6 @@ const Quiz = ({ TestName }) => {
           }
         } catch (error) {
           sendErrorMessage("Cannot get questions");
-          console.log(error)
         }
       } else {
         if (!token) {
@@ -242,15 +240,29 @@ const Quiz = ({ TestName }) => {
   };
 
   const formatTime = (seconds) => {
-    const hrs = Math.floor(seconds / 3600);
-    const mins = Math.floor((seconds % 3600) / 60);
-    const secs = seconds % 60;
-
-    const formattedTime = `${String(hrs).padStart(2, "0")}:${String(
-      mins
-    ).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
-    return formattedTime;
+    const days = Math.floor(seconds / 86400); // 1 day = 24 hours * 60 minutes * 60 seconds
+    const remainingSeconds = seconds % 86400;
+    const hrs = Math.floor(remainingSeconds / 3600);
+    const mins = Math.floor((remainingSeconds % 3600) / 60);
+    const secs = remainingSeconds % 60;
+  
+    const parts = [];
+    if (days > 0) {
+      parts.push(`${days} day${days > 1 ? 's' : ''}`);
+    }
+    if (hrs > 0) {
+      parts.push(`${hrs} hr${hrs > 1 ? 's' : ''}`);
+    }
+    if (mins > 0) {
+      parts.push(`${mins} min${mins > 1 ? 's' : ''}`);
+    }
+    if (secs > 0) {
+      parts.push(`${secs} sec${secs > 1 ? 's' : ''}`);
+    }
+  
+    return parts.join(':');
   };
+  
 
   const moveToPreviousQuestion = () => {
     if (questionNumber > 1) {
@@ -316,9 +328,10 @@ const Quiz = ({ TestName }) => {
           <div className="mt-2 md:mt-0">
             <p className="bg-orange-700 p-1 rounded-sm">
               <span className="px-2 text-base">
+                Remianing time: {''} 
                 {userSolutions.timer
                   ? formatTime(userSolutions.timer)
-                  : "00:00:00"}
+                  : "00:00:00 "}
               </span>
             </p>
           </div>

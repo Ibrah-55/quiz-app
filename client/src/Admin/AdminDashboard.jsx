@@ -11,7 +11,7 @@ const AdminDashboard = () => {
   const adminStatus = useSelector((state) => state.admin);
   const dispatch = useDispatch();
 
-  const [selectedTab, setSelectedTab] = useState("addQuestions");
+  const [selectedTab, setSelectedTab] = useState("addTest");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleClick = (text) => {

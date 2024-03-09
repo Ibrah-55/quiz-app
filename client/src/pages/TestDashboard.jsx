@@ -60,7 +60,6 @@ const TestDashboard = ({ TestName }) => {
             );
           } else {
             sendInfoMessage(res.data.error);
-            console.log(res.data.error)
             navigate(`/${testname}/result`);
           }
         } catch (error) {
@@ -102,7 +101,6 @@ const TestDashboard = ({ TestName }) => {
 
           if (res.data.success) {
             setTestDetail(res.data.tests);
-            console.log("Tests: ", res.data.tests);
           } else {
             sendInfoMessage("No test details found");
           }

@@ -153,7 +153,7 @@ const TestResult = ({ TestName }) => {
       return { color: "#ff0000", status: "   -- Wrong" };
     }
     if (isCorrectOption && optionId === marked_optionId) {
-      return { color: "green", status: "   -- Correct Answer" };
+      return { color: "green", status: "   -- Correct Answer " };
     }
     if( isCorrectOption){
       return { color: "#0fffff", status: "   -- Correct Answer" };
@@ -343,17 +343,18 @@ const TestResult = ({ TestName }) => {
               </tr>
             </tbody>
           </table>
-        </div>
-        <div className="flex flex-col md:flex-row gap-3 justify-end my-5">
-          <button
-            type="button"
-            className="p-1 text-base bg-gray-200 border-b-black border shadow-md text-black w-fit"
-            onClick={moveToDashboard}
-          >
-            Back
-          </button>
-        </div>
+        </div> 
+</div>
+<div className="flex flex-col items-center md:flex-row md:justify-center gap-3 my-5">
+<button
+    type="button"
+    className="px-4 py-2 text-lg font-semibold w-1/4 text-white bg-gray-500 rounded-full hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
+    onClick={moveToDashboard}
+  >
+    Back to Tests
+  </button>
       </div>
+
 
       <div className="flex items-start justify-center flex-col md:flex-row">
         <div className="flex flex-row m-1">

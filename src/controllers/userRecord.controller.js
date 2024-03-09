@@ -55,7 +55,7 @@ export const updateResponses = async (req, res) => {
     // finding user in the database
     const user = await authModel.findOne({ _id: userId });
     if (!user) {
-      const err = new Error("User not found");
+      const err = new Error("Invalid Credentials");
       throw err;
     }
 
@@ -135,7 +135,7 @@ export const recordResponses = async (req, res) => {
     // finding user in the database
     const user = await authModel.findOne({ _id: userId });
     if (!user) {
-      const err = new Error("User not found");
+      const err = new Error("Invalid Credentials");
       throw err;
     }
 
@@ -191,7 +191,7 @@ export const sendResult = async (req, res) => {
     // finding user in the database
     const user = await authModel.findOne({ _id: userId });
     if (!user) {
-      const err = new Error("User not found");
+      const err = new Error("Invalid Credentials");
       throw err;
     }
 
