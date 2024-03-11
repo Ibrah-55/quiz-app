@@ -8,13 +8,14 @@ import authRouter from "./src/routes/auth.route.js";
 import adminRouter from "./src/routes/admin.route.js";
 import userRouter from "./src/routes/user.route.js";
 import userRecordRouter from "./src/routes/userRecord.route.js";
-import paymentRouter from "./src/routes/payment.route.js";
+import paymentRouter from "./src/routes/lipanampesa.route.js";
 
 dotenv.config();
 
 connectToDatabase(process.env.MONGO_URI);
 
 const app = express();
+app.use(express.json());
 
 const PORT = process.env.PORT || 4000;
 

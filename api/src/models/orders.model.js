@@ -1,36 +1,35 @@
+
 import mongoose from "mongoose";
 
-const orderSchema = new mongoose.Schema(
-  {
-    customerId: {
-      type: mongoose.Types.ObjectId,
-      required: true,
-      trim: true,
+const orderSchema = new mongoose.Schema({
+    Order_ID : {
+        type : String,
     },
-    orderId: {
-      type: String,
-      required: true,
-      trim: true,
+    MerchantRequestID: {
+        type : String,
     },
-    paymentId: {
-      type: String,
-      default: "XXXXXXXXXX",
-      required: true,
-      trim: true,
+    CheckoutRequestID: {
+        type : String,
     },
-    paymentSignature: {
-      type: String,
-      default: "not_done_payment",
-      required: true,
-      trim: true,
+    ResultCode: {
+        type : Number,
     },
-    success: {
-      type: Boolean,
-      default: false,
-      required: true,
+    ResultDesc: {
+        type : String,
     },
-  },
-  { timeseries: true, timestamps: true }
+    Amount: {
+        type : String,
+    },
+    MpesaReceiptNumber: {
+        type : String,
+    },
+    TransactionDate: {
+        type : Date
+    }
+},
+{ timeseries: true, timestamps: true }
+
 );
+
 
 export const orderModel = new mongoose.model("order", orderSchema);

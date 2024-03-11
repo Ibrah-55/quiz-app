@@ -79,7 +79,7 @@ const Login = () => {
               token: userData.token,
             })
           );
-          navigate("/test-dashboard");
+          navigate("/checkout");
         } else {
           sendErrorMessage(res.data.error);
         }
@@ -87,7 +87,7 @@ const Login = () => {
         throw new Error("Invalid details entered");
       }
     } catch (success) {
-      navigate("/test-dashboard");
+      navigate("/checkout");
     }
 
     setLoading(false);

@@ -28,6 +28,8 @@ app.use(
   })
 );
 
+app.use(express.json());
+
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -38,8 +40,16 @@ app.use("/api", adminRouter);
 app.use("/api", userRouter);
 app.use("/api", userRecordRouter);
 app.use("/api", paymentRouter);
-app.use('/api',lipaNaMpesaRoutes);
+app.use('/api', lipaNaMpesaRoutes);
 
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something went wrong!');
+});
+app.use((req, res, next) => {
+  console.log('Incoming Request:', req);
+  next();
+});
 
 app.get("/", (req, res) => {
   res.status(200).send("Hello World");

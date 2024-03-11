@@ -15,7 +15,7 @@ import AdminSignup from "./Admin/AdminSignup";
 import AdminDashboard from "./Admin/AdminDashboard";
 import AdminPrivate from "./Admin/AdminPrivate";
 import Home from "./pages/Home";
-
+import PaymentsPage from "./pages/paymenstPage";
 const App = () => {
   const CompanyName = "Think Twice";
 
@@ -49,7 +49,12 @@ const App = () => {
             path="/:testName/result"
             element={<TestResult TestName={CompanyName} />}
           />
+           <Route
+            path="/checkout"
+            element={<PaymentsPage />}
+          />
         </Route>
+       
 
         <Route element={<AdminPrivate />}>
           <Route path="/admin-dashboard" element={<AdminDashboard />} />

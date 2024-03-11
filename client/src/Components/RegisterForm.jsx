@@ -148,6 +148,27 @@ const Register = () => {
     return false;
   };
 
+
+  const initiateLipaNaMpesa = async () => {
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/initiateSTKPush`,
+        {
+          amount: formData.amount,
+          phone: formData.mobileNumber,
+          // Include other necessary data
+        }
+      );
+  
+      // Extract necessary data from the response, such as order ID
+      const orderID = res.data.orderID;
+  
+      // Proceed with the next steps, e.g., redirect to a success page
+    } catch (error) {
+      console.error("Failed to initiate Lipa Na M-Pesa payment", error);
+      sendErrorMessage("Failed to initiate payment");
+    }
+  };
   const registerUser = async (checkout_result, userId) => {
     try {
       // registering the user
@@ -395,6 +416,8 @@ const Register = () => {
             </form>
           </div>
         </div>
+
+        
       </section>
     </>
   );
