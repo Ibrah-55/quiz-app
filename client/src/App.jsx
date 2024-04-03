@@ -10,6 +10,7 @@ import ErrorPage from "./pages/ErrorPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Private from "./pages/Private";
+import PrivateRoute from "./pages/PrivateRoute";
 import AdminLogin from "./Admin/AdminLogin";
 import AdminSignup from "./Admin/AdminSignup";
 import AdminDashboard from "./Admin/AdminDashboard";
@@ -30,7 +31,7 @@ const App = () => {
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/admin-signup" element={<AdminSignup />} />
 
-        <Route element={<Private />}>
+        <Route element={<PrivateRoute/>}>
           <Route
             path="/test-dashboard"
             element={<TestDashboard TestName={CompanyName} />}
@@ -49,7 +50,10 @@ const App = () => {
             path="/:testName/result"
             element={<TestResult TestName={CompanyName} />}
           />
-           <Route
+          
+        </Route>
+        <Route element={<Private />}>
+        <Route
             path="/checkout"
             element={<PaymentsPage />}
           />

@@ -7,4 +7,5 @@ const Private = () => {
   return <>{loginStatus.token ? <Outlet /> : <Navigate to={"/login"} />}</>;
 };
 
+
 export default Private;

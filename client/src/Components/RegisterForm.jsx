@@ -412,6 +412,19 @@ const Register = () => {
                   </a>
                   .
                 </label>
+                <label
+                  htmlFor="link-checkbox"
+                  className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-700"
+                >
+                  Admin?{" "}
+                  <a
+                    href="/admin-login"
+                    className="text-blue-600 dark:text-blue-800 hover:underline"
+                  >
+                    Login
+                  </a>
+                  .
+                </label>
               </div>
             </form>
           </div>

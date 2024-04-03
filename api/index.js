@@ -8,7 +8,6 @@ import authRouter from "./src/routes/auth.route.js";
 import adminRouter from "./src/routes/admin.route.js";
 import userRouter from "./src/routes/user.route.js";
 import userRecordRouter from "./src/routes/userRecord.route.js";
-import paymentRouter from "./src/routes/payment.route.js";
 import lipaNaMpesaRoutes from "./src/routes/lipanampesa.route.js"
 
 dotenv.config();
@@ -21,7 +20,7 @@ const PORT = process.env.PORT || 4000;
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://ce0f-197-232-245-169.ngrok-free.app"],
+    origin: ["http://localhost:3000", "https://e940-197-232-245-169.ngrok-free.app"],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
     optionsSuccessStatus: 204,
@@ -39,7 +38,6 @@ app.use("/api", authRouter);
 app.use("/api", adminRouter);
 app.use("/api", userRouter);
 app.use("/api", userRecordRouter);
-app.use("/api", paymentRouter);
 app.use('/api', lipaNaMpesaRoutes);
 
 app.use((err, req, res, next) => {
@@ -61,5 +59,7 @@ app.listen(PORT, (err) => {
     console.log(err);
     return err;
   }
+  console.log("*".repeat(20), "Server Working","*".repeat(20));
+
   console.log("Server started on port " + PORT);
 });

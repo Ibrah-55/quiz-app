@@ -14,8 +14,12 @@ const orderSchema = new mongoose.Schema({
     ResultCode: {
         type : Number,
     },
+
     ResultDesc: {
         type : String,
+    },
+    PhoneNumber: {
+        type : Number,
     },
     Amount: {
         type : String,
